@@ -1,6 +1,6 @@
 package br.com.denys.poc.rabbit.producer.controller;
 
-import br.com.denys.poc.rabbit.producer.queue.QueueProducer;
+import br.com.denys.poc.rabbit.producer.service.RabbitMqSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class QueueController {
 
     @Autowired
-    private QueueProducer queueProducer;
-
+    private RabbitMqSenderService rabbitMqSenderService;
 
     @GetMapping
     public String send() {
-        queueProducer.send("test message");
+        rabbitMqSenderService.send(new Object(), "my_durable");
         return "ok. done";
     }
 
